@@ -1,0 +1,20 @@
+#@ load("@ytt:data", "data")
+#@ load(deployment_labels", "deployment_name")
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: #@ deployment_name()
+  #@ if/end data.values.namespace:
+  namespace: #@ data.values.namespace
+spec:
+  selector:
+    matchLabels: #@ deployment_labels()
+  template:
+    metadata:
+      labels: #@ deployment_labels()
+    spec:
+      containers:
+      - name: default
+        image: nginx
