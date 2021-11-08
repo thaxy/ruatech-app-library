@@ -1,19 +1,19 @@
 #@ load("@ytt:data", "data")
-#@ load(deployment_labels", "deployment_name")
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: #@ deployment_name()
-  #@ if/end data.values.namespace:
+  name: #@ data.values.name
   namespace: #@ data.values.namespace
 spec:
   selector:
-    matchLabels: #@ deployment_labels()
+    matchLabels:
+      x: 1
   template:
     metadata:
-      labels: #@ deployment_labels()
+      labels:
+        x: 1
     spec:
       containers:
       - name: default
